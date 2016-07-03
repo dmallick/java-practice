@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *
  * Created by dmalli on 6/25/2016.
+ *
  */
 public class BulkInsert {
 

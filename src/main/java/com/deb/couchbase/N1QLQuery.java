@@ -10,6 +10,7 @@ import com.couchbase.client.java.query.N1qlQuery;
 import com.couchbase.client.java.query.N1qlQueryResult;
 import com.couchbase.client.java.query.N1qlQueryRow;
 import com.couchbase.client.java.query.Statement;
+import rx.Observable;
 
 import static com.couchbase.client.java.query.Select.select;
 import static com.couchbase.client.java.query.dsl.Expression.i;
@@ -27,13 +28,8 @@ public class N1QLQuery {
 
         Bucket bucket = cluster.openBucket("ProductService");
         N1qlQueryResult query = bucket.query(select("*").from("ProductService").limit(10));
+        query.allRows().stream().forEach(result -> System.out.println(result.value()));
 
 
-        Statement statement = select("fname", "lname", "age").from(i("default")).where(x("age").gt(x("$age")));
-        JsonObject placeholderValues = JsonObject.create().put("age", 22);
-        N1qlQuery q = N1qlQuery.parameterized(statement, placeholderValues);
-        for (N1qlQueryRow row : bucket.query(q)) {
-            System.out.println(row);
-        }
     }
 }

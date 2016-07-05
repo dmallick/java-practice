@@ -16,7 +16,7 @@ import static com.couchbase.client.java.query.Select.select;
 import static com.couchbase.client.java.query.dsl.Expression.i;
 import static com.couchbase.client.java.query.dsl.Expression.x;
 
-public class N1QLQuery {
+public class N1QLQueryWithSync {
 
     public static void main(String[] args) {
         System.setProperty("com.couchbase.queryEnabled", "true");
@@ -26,8 +26,8 @@ public class N1QLQuery {
                 .queryEnabled(true)
                 .build());
 
-        Bucket bucket = cluster.openBucket("ProductService");
-        N1qlQueryResult query = bucket.query(select("*").from("ProductService").limit(10));
+        Bucket bucket = cluster.openBucket("beer-sample");
+        N1qlQueryResult query = bucket.query(select("*").from("`beer-sample`").limit(10));
         query.allRows().stream().forEach(result -> System.out.println(result.value()));
 
 
